@@ -1,0 +1,139 @@
+.App {
+  box-sizing: border-box;
+  text-align: center;
+  max-height: 100vh;
+  margin: 0 auto;
+  direction: rtl;
+  overflow: hidden;
+  background-color: rgb(239, 243, 243);
+}
+
+.header {
+  height: 5vh;
+  border-bottom: black solid 1px;
+}
+
+.section {
+  width: 95%;
+  padding-top: 2vh;
+  height: 90vh;
+  margin: 0 auto;
+}
+
+.footer {
+  height: 5vh;
+  border-top: black solid 1px;
+}
+
+.order-line:hover {
+  background: rgb(228, 224, 224);
+}
+
+.order-list {
+  max-height: 48vh;
+  overflow: auto;
+}
+
+input {
+  width: 300px;
+  border: none;
+  border-bottom: solid 1px black;
+  border-left: solid 1px black;
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  font-size: 1.2rem;
+}
+
+.btn-delete {
+  color: red;
+}
+
+button:hover {
+  background-color: whitesmoke;
+}
+
+.btn-save {
+  margin: 2px auto;
+  background-color: #007bff;
+  border-radius: 1rem;
+  width: 150px;
+  display: block;
+}
+
+.order-form {
+  background-color: rgb(218, 209, 209);
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px auto;
+  width: 50%;
+}
+
+.table-title {
+  font-weight: bold;
+}
+
+.mail-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.mail {
+  display: flex;
+  flex-direction: column;
+  margin: 16vh auto;
+  width: 80%;
+  max-height: 70vh;
+  box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+textarea {
+  height: 120px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  resize: both;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(233, 230, 230);
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(63, 61, 61);
+}
+
+.sort {
+  display: flex;
+  margin: 5px 0;
+}
+
+.search {
+  border: 1px solid black;
+  margin-left: 10px;
+}
