@@ -5,7 +5,8 @@ const SORT_OPTION = {
   name: { column: "name", dir: "asc" },
   orderNum: { column: "orderNum", dir: "asc" },
   deliveryNum: { column: "deliveryNum", dir: "asc" },
-  date: { column: "createAt", dir: "desc" },
+  date: { column: "date", dir: "desc" },
+  createAt: { column: "createAt", dir: "desc" },
 };
 
 export default function useFirestore(collection, orderBy = "createAt") {

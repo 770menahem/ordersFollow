@@ -2,20 +2,20 @@ import React from "react";
 import DelBtn from "./DelBtn";
 import Mail from "./Mail";
 
-const th = [
-  "תאריך",
-  "שם",
-  "מספר הזמנה",
-  "מספר משלוח",
-  "אימייל",
-  "טלפון",
-  "סטטוס",
-  "",
-];
-
 const OrderList = ({ setCurrentId, allOrders }) => {
+  const th = [
+    "תאריך",
+    "שם",
+    "מספר הזמנה",
+    "מספר משלוח",
+    "אימייל",
+    "טלפון",
+    "סטטוס",
+    "",
+  ];
+
   const editOrderDetails = (e, id) => {
-    if (!e.target.classList[0]) {
+    if (e.target.classList[0] === "list") {
       setCurrentId(id);
     }
   };
@@ -39,13 +39,13 @@ const OrderList = ({ setCurrentId, allOrders }) => {
                 editOrderDetails(e, order.id);
               }}
             >
-              <td>{order.date}</td>
-              <td>{order.name}</td>
-              <td>{order.orderNum}</td>
-              <td>{order.deliveryNum}</td>
-              <td>{order.email}</td>
-              <td>{order.mobile}</td>
-              <td>{order.status}</td>
+              <td className="list">{order.date}</td>
+              <td className="list">{order.name}</td>
+              <td className="list">{order.orderNum}</td>
+              <td className="list">{order.deliveryNum}</td>
+              <td className="list">{order.email}</td>
+              <td className="list">{order.mobile}</td>
+              <td className="list">{order.status}</td>
               <td>
                 <DelBtn id={order.id} />
                 <Mail order={order} />

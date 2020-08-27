@@ -14,7 +14,7 @@ export default function Mail({ order }) {
     setMail(true);
   };
 
-  const sendMail = () => {
+  const sendMailw = () => {
     console.log(txtMail);
     setMail(false);
     setTxtMail(basicMail);
@@ -49,7 +49,7 @@ export default function Mail({ order }) {
         <div className="mail-popup" onClick={closeEmailPopup}>
           <div className="mail">
             <textarea defaultValue={txtMail} onChange={handleMailMessage} />
-            <button onClick={sendMail}>send</button>
+            <button onClick={sendMailw}>send</button>
           </div>
         </div>
       )}
