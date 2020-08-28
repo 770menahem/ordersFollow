@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import OrderList from "./component/OrderList";
-import OrderForm from "./component/OrderForm";
-import { collectionName } from "./component/common/collectionName";
 import useFirestore from "./firebase/useFirestore";
-import SortBy from "./component/SortBy";
-import "./App.css";
-import Search from "./component/Search";
+import { collectionName } from "./component/common/collectionName";
 import Signing from "./component/Signing";
+import OrderList from "./component/OrderList.jsx";
+import OrderForm from "./component/OrderForm";
+import SortBy from "./component/SortBy";
+import Search from "./component/Search";
+import "./Home.css";
 
-function App() {
+function Home() {
   const [sign, setSign] = useState(false);
   const [orderBy, setOrderBy] = useState("date");
   const { docs } = useFirestore(collectionName, orderBy);
@@ -20,12 +20,6 @@ function App() {
     setAllOrders(docs);
   }, [docs, orderBy]);
 
-  useEffect(() => {
-    if (localStorage.getItem("sign")) {
-      setSign(true);
-    }
-  }, []);
-
   return (
     <div className="App">
       <div className="header">
@@ -36,7 +30,7 @@ function App() {
           <Signing setSign={setSign} />
         ) : (
           <>
-            <OrderForm {...{ currentId, setCurrentId }} />
+            <OrderForm {...{ currentId, setCurrentId, allOrders }} />
             <div className="sort">
               <Search
                 allOrders={allOrders}
@@ -58,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import getDate from "./common/today";
 import { fireStore } from "../firebase/config";
 import { collectionName } from "./common/collectionName";
+import Status from "./Status";
+import Input from "./common/Input";
 
-const OrderForm = ({ currentId, setCurrentId }) => {
+const OrderForm = ({ currentId, setCurrentId, allOrders }) => {
   const basicValues = {
     createAt: new Date(),
     date: getDate(),
@@ -15,16 +17,47 @@ const OrderForm = ({ currentId, setCurrentId }) => {
     status: "",
   };
   const [order, setOrder] = useState(basicValues);
+  const inputsGroupOne = [
+    { value: order.name, holder: "שם", name: "name", required: true },
+    {
+      value: order.orderNum,
+      holder: "מספר הזמנה",
+      name: "orderNum",
+      type: "number",
+      required: true,
+    },
+    {
+      value: order.deliveryNum,
+      holder: "מספר משלוח",
+      name: "deliveryNum",
+      type: "number",
+    },
+  ];
+  const inputsGroupTwo = [
+    { value: order.email, holder: "אמייל", name: "email", type: "email" },
+    { value: order.mobile, holder: "טלפון", name: "mobile", type: "number" },
+    {
+      value: order.date,
+      holder: "תאריך",
+      name: "date",
+      type: "date",
+      required: true,
+    },
+  ];
+  const submit = {
+    type: "submit",
+    className: "btn form-control btn-primary",
+    //                  false      true
+    value: !currentId ? "שמור" : "עדכן",
+  };
 
   useEffect(() => {
     if (!currentId) {
       setOrder({ ...basicValues });
     } else {
-      fireStore
-        .collection(collectionName)
-        .doc(currentId)
-        .get()
-        .then((res) => setOrder(res.data()));
+      allOrders.forEach((ord) => {
+        if (ord.id === currentId) setOrder(ord);
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,92 +89,34 @@ const OrderForm = ({ currentId, setCurrentId }) => {
 
   return (
     <form className="order-form" autoComplete="off" onSubmit={handleFormSubmit}>
-      <p className="table-title">פרטי הזמנה</p>
+      <p className="form-title">פרטי הזמנה</p>
       <div className="container">
         <div className="row form-group">
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              required
-              name="name"
-              placeholder="שם"
-              value={order.name}
+          {inputsGroupOne.map((input) => (
+            <Input
+              key={input.name}
+              input={input}
               onChange={handleInputChange}
             />
-          </div>
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              required
-              type="number"
-              name="orderNum"
-              placeholder="מספר הזמנה"
-              value={order.orderNum}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              type="number"
-              name="deliveryNum"
-              placeholder="מספר משלוח"
-              value={order.deliveryNum}
-              onChange={handleInputChange}
-            />
-          </div>
+          ))}
         </div>
         <div className="row form-group">
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              required
-              type="email"
-              name="email"
-              placeholder="מייל"
-              value={order.email}
+          {inputsGroupTwo.map((input) => (
+            <Input
+              key={input.name}
+              input={input}
               onChange={handleInputChange}
             />
-          </div>
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              type="number"
-              name="mobile"
-              placeholder="טלפון"
-              value={order.mobile}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="col-md-4">
-            <input
-              className="form-control"
-              required
-              type="date"
-              placeholder="תאריך"
-              name="date"
-              value={order.date}
-              onChange={handleInputChange}
-            />
-          </div>
+          ))}
         </div>
         <div className="row form-group">
           <div className="col-md-6">
-            <input
-              className="form-control"
-              name="status"
-              placeholder="סטטוס"
-              value={order.status}
-              onChange={handleInputChange}
+            <Status
+              status={order.status}
+              handleInputChange={handleInputChange}
             />
           </div>
-          <div className="col-md-6">
-            <input
-              type="submit"
-              value={!currentId ? "Save" : "Update"}
-              className="btn form-control btn-primary"
-            />
-          </div>
+          <Input input={submit} />
         </div>
       </div>
     </form>

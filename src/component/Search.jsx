@@ -21,7 +21,7 @@ const Search = ({ allOrders, setFilteredOrders }) => {
   };
 
   return (
-    <div className="col-md-6">
+    <div className="mx-2">
       <input
         placeholder="חיפוש"
         className=" form-control"

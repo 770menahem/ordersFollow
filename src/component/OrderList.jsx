@@ -1,6 +1,5 @@
 import React from "react";
 import DelBtn from "./DelBtn";
-import Mail from "./Mail";
 
 const OrderList = ({ setCurrentId, allOrders }) => {
   const th = [
@@ -26,7 +25,9 @@ const OrderList = ({ setCurrentId, allOrders }) => {
         <thead className="thead">
           <tr>
             {th.map((th) => (
-              <th key={th}>{th}</th>
+              <th className="list-title" key={th}>
+                {th}
+              </th>
             ))}
           </tr>
         </thead>
@@ -35,9 +36,7 @@ const OrderList = ({ setCurrentId, allOrders }) => {
             <tr
               className="order-line"
               key={order.id}
-              onClick={(e) => {
-                editOrderDetails(e, order.id);
-              }}
+              onClick={(e) => editOrderDetails(e, order.id)}
             >
               <td className="list">{order.date}</td>
               <td className="list">{order.name}</td>
@@ -48,7 +47,6 @@ const OrderList = ({ setCurrentId, allOrders }) => {
               <td className="list">{order.status}</td>
               <td>
                 <DelBtn id={order.id} />
-                <Mail order={order} />
               </td>
             </tr>
           ))}

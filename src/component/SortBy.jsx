@@ -6,21 +6,13 @@ export default function SortBy({ setOrderBy, orderBy }) {
   };
 
   return (
-    <div className="container">
-      <div className="row form-group">
-        <div className="col-md-6">
-          <select
-            className="form-control"
-            value={orderBy}
-            onChange={handleSelect}
-          >
-            <option value="date">תאריך</option>
-            <option value="name">שם</option>
-            <option value="orderNum">מספר הזמנה</option>
-            <option value="deliveryNum">מספר משלוח</option>
-          </select>
-        </div>
-      </div>
+    <div className="mx-2">
+      <select className="form-control" value={orderBy} onChange={handleSelect}>
+        <option value="date">תאריך</option>
+        <option value="name">שם</option>
+        <option value="orderNum">מספר הזמנה</option>
+        <option value="deliveryNum">מספר משלוח</option>
+      </select>
     </div>
   );
 }
