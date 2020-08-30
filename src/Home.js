@@ -8,6 +8,7 @@ import OrderForm from "./component/OrderForm";
 import SortBy from "./component/SortBy";
 import Search from "./component/Search";
 import Header from "./component/Header";
+import LogoutBtn from "./component/LogoutBtn";
 import "./Home.css";
 
 function Home() {
@@ -25,6 +26,8 @@ function Home() {
     log.onAuthStateChanged((user) => {
       if (user) {
         setSign(true);
+      } else {
+        setSign(false);
       }
     });
   }, []);
@@ -37,6 +40,7 @@ function Home() {
           <Signing />
         ) : (
           <>
+            <LogoutBtn />
             <OrderForm {...{ currentId, setCurrentId, allOrders }} />
             <div className="sort">
               <Search {...{ allOrders, setFilteredOrders }} />
