@@ -1,46 +1,52 @@
 import React, { useState, useEffect } from "react";
 import useFirestore from "./firebase/useFirestore";
 import { collectionName } from "./component/common/collectionName";
+import { log } from "./firebase/config";
 import Signing from "./component/Signing";
 import OrderList from "./component/OrderList.jsx";
 import OrderForm from "./component/OrderForm";
 import SortBy from "./component/SortBy";
 import Search from "./component/Search";
+import Header from "./component/Header";
 import "./Home.css";
 
 function Home() {
+  const { docs } = useFirestore(collectionName);
   const [sign, setSign] = useState(false);
-  const [orderBy, setOrderBy] = useState("date");
-  const { docs } = useFirestore(collectionName, orderBy);
   const [currentId, setCurrentId] = useState("");
   const [allOrders, setAllOrders] = useState(docs);
   const [filteredOrders, setFilteredOrders] = useState("");
 
   useEffect(() => {
     setAllOrders(docs);
-  }, [docs, orderBy]);
+  }, [docs]);
+
+  useEffect(() => {
+    log.onAuthStateChanged((user) => {
+      if (user) {
+        setSign(true);
+      }
+    });
+  }, []);
 
   return (
     <div className="App">
-      <div className="header">
-        <p>מעקב משלוחים</p>
-      </div>
+      <Header {...{ sign, setSign }} />
       <div className="section">
         {!sign ? (
-          <Signing setSign={setSign} />
+          <Signing />
         ) : (
           <>
             <OrderForm {...{ currentId, setCurrentId, allOrders }} />
             <div className="sort">
-              <Search
-                allOrders={allOrders}
-                setFilteredOrders={setFilteredOrders}
-              />
-              <SortBy setOrderBy={setOrderBy} orderBy={orderBy} />
+              <Search {...{ allOrders, setFilteredOrders }} />
+              <SortBy {...{ allOrders, setAllOrders }} />
             </div>
             <OrderList
-              allOrders={filteredOrders ? filteredOrders : allOrders}
-              setCurrentId={setCurrentId}
+              {...{
+                setCurrentId,
+                allOrders: filteredOrders ? filteredOrders : allOrders,
+              }}
             />
           </>
         )}

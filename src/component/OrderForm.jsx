@@ -56,7 +56,9 @@ const OrderForm = ({ currentId, setCurrentId, allOrders }) => {
       setOrder({ ...basicValues });
     } else {
       allOrders.forEach((ord) => {
-        if (ord.id === currentId) setOrder(ord);
+        if (ord.id === currentId) {
+          setOrder(ord);
+        }
       });
     }
 

@@ -26,6 +26,17 @@
   border-top: black solid 1px;
 }
 
+/* header  */
+.logout {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.singing {
+  margin: 5rem;
+}
+
 /* form */
 .order-form {
   background-color: rgb(218, 209, 209);
