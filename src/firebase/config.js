@@ -15,5 +15,20 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+firebase
+  .firestore()
+  .enablePersistence({ synchronizeTabs: true })
+  .catch(function (err) {
+    if (err.code === "failed-precondition") {
+      alert(
+        "אנא השאר רק כרטיסיה אחת (של האתר) פתוחה כדי לעדכן פרטים באופן לא מקוון"
+      );
+      console.log(err);
+    } else if (err.code === "unimplemented") {
+      alert("הדפדפן לא מאפשר עבודה באופן לא מקוון");
+      console.log(err);
+    }
+  });
+
 export const fireStore = firebase.firestore();
 export const log = firebase.auth();

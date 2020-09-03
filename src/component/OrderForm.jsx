@@ -17,6 +17,7 @@ const OrderForm = ({ currentId, setCurrentId, allOrders }) => {
     status: "",
   };
   const [order, setOrder] = useState(basicValues);
+  const [overflow, setOverflow] = useState("hidden");
   const inputsGroupOne = [
     { value: order.name, holder: "שם", name: "name", required: true },
     {
@@ -58,12 +59,25 @@ const OrderForm = ({ currentId, setCurrentId, allOrders }) => {
       allOrders.forEach((ord) => {
         if (ord.id === currentId) {
           setOrder(ord);
+          setOverflow("visible");
         }
       });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentId]);
+
+  useEffect(() => {
+    if (overflow === "hidden") {
+      setCurrentId("");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [overflow]);
+
+  const showOrHideForm = () => {
+    setOverflow(overflow === "visible" ? "hidden" : "visible");
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -87,41 +101,53 @@ const OrderForm = ({ currentId, setCurrentId, allOrders }) => {
     }
     setOrder(basicValues);
     setCurrentId("");
+    setOverflow("hidden");
   };
 
   return (
-    <form className="order-form" autoComplete="off" onSubmit={handleFormSubmit}>
-      <p className="form-title">פרטי הזמנה</p>
-      <div className="container">
-        <div className="row form-group">
-          {inputsGroupOne.map((input) => (
-            <Input
-              key={input.name}
-              input={input}
-              onChange={handleInputChange}
-            />
-          ))}
-        </div>
-        <div className="row form-group">
-          {inputsGroupTwo.map((input) => (
-            <Input
-              key={input.name}
-              input={input}
-              onChange={handleInputChange}
-            />
-          ))}
-        </div>
-        <div className="row form-group">
-          <div className="col-md-6">
-            <Status
-              status={order.status}
-              handleInputChange={handleInputChange}
-            />
+    <>
+      <button className="btn btn-primary" onClick={showOrHideForm}>
+        {overflow === "visible" ? "הסתר" : "הוסף הזמנה"}
+      </button>
+      <div className="show-form" style={{ overflow: `${overflow}` }}>
+        <form
+          className="order-form"
+          autoComplete="off"
+          onSubmit={handleFormSubmit}
+        >
+          <p className="form-title">פרטי הזמנה</p>
+          <div className="container">
+            <div className="row form-group">
+              {inputsGroupOne.map((input) => (
+                <Input
+                  key={input.name}
+                  input={input}
+                  onChange={handleInputChange}
+                />
+              ))}
+            </div>
+            <div className="row form-group">
+              {inputsGroupTwo.map((input) => (
+                <Input
+                  key={input.name}
+                  input={input}
+                  onChange={handleInputChange}
+                />
+              ))}
+            </div>
+            <div className="row form-group">
+              <div className="col-md-6">
+                <Status
+                  status={order.status}
+                  handleInputChange={handleInputChange}
+                />
+              </div>
+              <Input input={submit} />
+            </div>
           </div>
-          <Input input={submit} />
-        </div>
+        </form>
       </div>
-    </form>
+    </>
   );
 };
 

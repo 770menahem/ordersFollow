@@ -5,13 +5,16 @@ export default function useFirestore(collection) {
   const [docs, setDocs] = useState([]);
 
   useEffect(() => {
-    const unsub = fireStore.collection("order").onSnapshot((snap) => {
-      let document = [];
-      snap.forEach((doc) => {
-        document.push({ ...doc.data(), id: doc.id });
+    const unsub = fireStore
+      .collection("order")
+      .orderBy("date", "desc")
+      .onSnapshot((snap) => {
+        let document = [];
+        snap.forEach((doc) => {
+          document.push({ ...doc.data(), id: doc.id });
+        });
+        setDocs(document);
       });
-      setDocs(document);
-    });
 
     return () => unsub();
   }, [collection]);

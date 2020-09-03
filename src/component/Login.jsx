@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { log } from "../firebase/config";
 
-export default function Signing() {
+export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
 
